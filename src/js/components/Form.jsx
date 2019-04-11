@@ -24,26 +24,33 @@ class ConnectedForm extends Component {
         event.preventDefault();
         const { title } = this.state;
         const id = uuidv1();
-        this.props.addArticle({ title, id });
+        this.props.addArticle({ title, id, src: '../../../src/imgs/machinist.JPG' });
         this.setState({ title: "" });
     }
     render() {
         const { title } = this.state;
         return (
             <form onSubmit={this.handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="title">Title</label>
+                <div className="form-group text-right">
                     <input
                         type="text"
                         className="form-control"
                         id="title"
                         value={title}
-                        onChange={this.handleChange}
-                    />
+                        onChange={this.handleChange}/>
                 </div>
-                <button type="submit" className="btn btn-success btn-lg">
-                    SAVE
-                </button>
+                <div>
+                    <span>SEARCH BY: </span>
+                    <button type="submit" id="title" className="btn btn-primary btn-lg float-left margin-for-btn">
+                        TITLE
+                    </button>
+                    <button type="submit" id="title" className="btn btn-primary btn-lg float-left margin-for-btn">
+                        GENRE
+                    </button>
+                    <button type="submit" className="btn btn-success btn-lg float-right margin-for-btn">
+                        SAVE
+                    </button>
+                </div>
             </form>
         );
     }
