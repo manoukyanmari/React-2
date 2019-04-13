@@ -2,12 +2,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import uuidv1 from "uuid";
-import { addArticle } from "../actions/index";
+import { addArticle } from "../../actions/index";
 function mapDispatchToProps(dispatch) {
     return {
         addArticle: article => dispatch(addArticle(article))
     };
 }
+// smart component
 class ConnectedForm extends Component {
     constructor() {
         super();
@@ -39,17 +40,21 @@ class ConnectedForm extends Component {
                         value={title}
                         onChange={this.handleChange}/>
                 </div>
-                <div>
-                    <span>SEARCH BY: </span>
-                    <button type="submit" id="title" className="btn btn-primary btn-lg float-left margin-for-btn">
-                        TITLE
-                    </button>
-                    <button type="submit" id="title" className="btn btn-primary btn-lg float-left margin-for-btn">
-                        GENRE
-                    </button>
-                    <button type="submit" className="btn btn-success btn-lg float-right margin-for-btn">
-                        SAVE
-                    </button>
+                <div className="row">
+                    <div className="col-md-6">
+                        <span>SEARCH BY: </span>
+                        <button type="button" id="title" className="btn btn-primary btn-lg float-left margin-for-btn">
+                            TITLE
+                        </button>
+                        <button type="button" id="title" className="btn btn-primary btn-lg float-left margin-for-btn">
+                            GENRE
+                        </button>
+                    </div>
+                    <div className="col-md-6 text-right">
+                        <button type="submit" className="btn btn-success btn-lg float-right margin-for-btn">
+                            SEARCH
+                        </button>
+                    </div>
                 </div>
             </form>
         );

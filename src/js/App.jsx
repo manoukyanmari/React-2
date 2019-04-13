@@ -1,31 +1,59 @@
 import React from "react";
 import List from "./components/List.jsx";
-import Form from "./components/Form.jsx";
+import Home from "./components/Home.jsx";
+import Movie from "./components/Movie.jsx";
 import ReactDOM from "react-dom";
 import Provider from "react-redux/es/components/Provider";
 import store from "./store/index";
 import ErrorBoundary from "./components/ErrorBoundary.jsx";
+import { Switch } from 'react-router'
+import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
 
+const footer = {
+  backgroundColor: 'grey',
+  color: '#fff',
+  padding: '0 30px'
+};
+// dumb component
+const Footer = (props) => {
+    return(
+        <section id="footer">
+            <div className="container footer" style={footer}>
+                <div className="row text-sm-left text-md-left">
+                    <div>
+                        <h6>Footer Information</h6>
+                    </div>
+                </div>
+            </div>
+        </section>
+    )
+};
+//dumb component
 const App = () => (
     <div className="row mt-5">
+        <Router>
+            <Switch>
+                <Route path="/" component={Movie} />
+                <Route path="/" component={Home} />
+            </Switch>
+        </Router>
         <div className="container">
-            <div className="jumbotron">
-            <h2>NetFlix roulette</h2>
-            <label htmlFor="title">FIND YOUR MOVIE</label>
-                <Form />
-            </div>
-        </div>
-        <div className="col-md-4 offset-md-1">
             <List />
         </div>
+        <Footer />
     </div>
 );
-ReactDOM.render(
+
+const routing = (
     <ErrorBoundary>
         <Provider store={store}>
-            <App />
+            <div>
+                <App/>
+            </div>
         </Provider>
-    </ErrorBoundary>,
-    document.getElementById("root")
+    </ErrorBoundary>
 );
+
+ReactDOM.render(routing, document.getElementById("root"));
+
 export default App;

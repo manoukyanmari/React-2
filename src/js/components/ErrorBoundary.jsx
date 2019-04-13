@@ -4,14 +4,19 @@ class ErrorBoundary extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            hasError: false
+            hasError: false,
+            logErrorToMyService: function(error, info) {
+                console.log(error, 'error');
+                console.log(info, 'infooo');
+            }
         };
     }
+
 
     componentDidCatch(error, info) {
         this.setState({ hasError: true });
         // You can also log the error to an error reporting service
-        logErrorToMyService(error, info);
+        this.state.logErrorToMyService(error, info);
     }
 
     render() {
