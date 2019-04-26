@@ -4,17 +4,12 @@ import Home from "./components/Home.jsx";
 import Movie from "./components/Movie.jsx";
 import Footer from "./components/Footer.jsx";
 import ReactDOM from "react-dom";
-import Provider from "react-redux/es/components/Provider";
-import store from "./store/index";
+import { Provider } from 'react-redux'
+import store from "./store/store";
 import ErrorBoundary from "./components/ErrorBoundary.jsx";
 import { Switch } from 'react-router'
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
 
-const footer = {
-  backgroundColor: 'grey',
-  color: '#fff',
-  padding: '0 30px'
-};
 //dumb component
 const App = () => (
     <div className="row mt-5">

@@ -6,10 +6,19 @@
   "dependencies": {
     "lodash": "^4.17.11"
   },
+  "jest": {
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
+  },
+  "setupFiles": [
+    "./src/setupTests.js"
+  ],
   "scripts": {
     "start": "webpack-dev-server --open --mode development",
     "dev": "webpack --mode development ./src/init.js --output ./main.js --module-bind js=babel-loader",
-    "build": "webpack --mode production ./src/init.js --output ./main.js --module-bind js=babel-loader"
+    "build": "webpack --mode production ./src/init.js --output ./main.js --module-bind js=babel-loader",
+    "test": "jest"
   },
   "keywords": [],
   "author": " <Mariam> (nemirvapage.blogspot.com)",
@@ -18,19 +27,22 @@
     "@babel/core": "^7.4.0",
     "@babel/preset-env": "^7.4.2",
     "@babel/preset-react": "^7.0.0",
-    "babel-jest": "^24.5.0",
+    "babel-jest": "^24.7.1",
     "babel-loader": "^8.0.5",
     "bootstrap": "^4.3.1",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.12.1",
+    "enzyme-to-json": "^3.3.5",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
-    "jest": "^24.5.0",
+    "jest": "^24.7.1",
     "prop-types": "^15.7.2",
     "react": "latest",
     "react-bootstrap": "^1.0.0-beta.6",
     "react-dom": "latest",
     "react-redux": "^6.0.1",
-    "react-router-dom": "latest",
-    "react-scripts": "^2.0.0",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "^3.0.0",
     "react-test-renderer": "^16.8.5",
     "redux": "^4.0.1",
     "uuid": "^3.3.2",
