@@ -1,15 +1,14 @@
 // src/js/components/List.jsx
 import React from "react";
 import { connect } from "react-redux";
-
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
 const mapStateToProps = state => {
     return {
         articles: state.articles,
     };
 };
 var onClick = function() {
-    console.log('ssssdfdfdf');
     window.location.href = "movie";
 };
 
@@ -21,7 +20,7 @@ const ConnectedList = ({ articles }) => (
                 <div className="col-12 col-sm-4 col-md-3 p-2" key={el.id}>
                     <div className="text-center border height100">
                         <div>
-                            <a onClick={onClick}>
+                            <a type="button" onClick={onClick}>
                             <img src={el.src}/>
                             </a>
                         </div>

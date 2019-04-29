@@ -53,30 +53,4 @@ describe('There is an initial component and error test',()=>{
         home = shallow(<Home/>);
         expect(home.length).toEqual(1)
     });
-    //
-    // it('+++ contains header - h2', () => {
-    //     expect(componentWrapper.contains(<h2>using React and Redux</h2>)).toBe(true)
-    // });
-    // it('+++ h2 header value ', () => {
-    //     expect(wrapper.find('h2').get(0).props.children).toBe("using React and Redux")
-    // });
-    // it('+++ contains input1', () => {
-    //     expect(wrapper.find('input').at(0)
-    //         .equals(<input type="text" placeholder="Input 1" ref="input1"></input>))
-    //         .toBe(true)
-    // });
-    // it('+++ contains input2', () => {
-    //     expect(wrapper.find('input').at(1)
-    //         .equals(<input type="text" placeholder="Input 2" ref="input2"></input>))
-    //         .toBe(true)
-    // });
-    // it('+++ contains output', () => {
-    //     expect(wrapper.find('input[placeholder="Output"]').prop('value')).toEqual(output)
-    // });
-    // it('+++ contains button with id="add"', () => {
-    //     expect(wrapper.find('button#add').type()).toEqual('button')
-    // });
-    // it('+++ contains button with id="subtract"', () => {
-    //     expect(wrapper.find('button#subtract').type()).toEqual('button')
-    // });
 });
