@@ -9,8 +9,10 @@ module.exports = {
                 exclude: /node_modules/,
                 use: {
                     loader: "babel-loader"
-                }
+                },
+
             },
+            { test: /\.css$/, use: [ 'style-loader', 'css-loader' ]},
             {
                 test: /\.html$/,
                 use: [
@@ -22,6 +24,9 @@ module.exports = {
             }
         ]
     },
+    devServer: {
+        historyApiFallback: true,
+    },
     context: path.resolve(__dirname, "src"),
     mode: "development",
     devtool: 'none',
@@ -31,7 +36,6 @@ module.exports = {
         path: path.resolve(__dirname, "dist")
     },
     watch: false,
-
     plugins: [
         new HtmlWebPackPlugin({
             template: "./index.html",
