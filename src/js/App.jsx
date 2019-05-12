@@ -8,14 +8,14 @@ import { Provider } from 'react-redux'
 import store from "./store/store";
 import ErrorBoundary from "./components/ErrorBoundary.jsx";
 import { Switch } from 'react-router'
-import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
 
 //dumb component
 const HomeComponent = props  => (
     <div className="row mt-5">
         <Home/>
         <div className="container">
-           {props.content}
+            <Route exact path="/" Component={List}/>
+            <Route exact path="/movie" Component={Movie}/>
         </div>
     </div>
 );
@@ -26,26 +26,77 @@ const NotFound = () => (
     </div>
 );
 
+const RouterContext = React.createContext();
+const Router extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            location: window.location
+        }
+        this.handleClick = this.handleClick.bind(this);
+    }
+    handleClick = async event =>{
+        event.preventDefault();
+        window.history.pushState(null, null, event.target.closest('a').href);
+        this.setState({ location: window.location });
+    };
+    handlePopState = () => {
+        this.setState({ location: window.location });
+    }
+    componentDidMount() {
+        window.addEventListener('popState', this.handlePopState);
+    }
+    render() {
+        return(
+            <RouterContext.Provider value={{location: this.state.location, handleClick: this.handleclick}}>
+                {this.props.children}
+            </RouterContext.Provider>
+        )
+
+    }
+}
+
+const Route = ({ path, component }) => {
+    return (
+        <RouterContext.Consumer>
+            {
+                context => {
+                    const location = context.location;
+                    const matched = exact ? location.pathname === path : location.pathname.startsWith(path);
+                    if(matched) {
+                        return <Component />
+                    }
+                    return null;
+                }
+            }
+        </RouterContext.Consumer>
+    )
+}
+
+const link = ({ to, children }) => {
+    return (
+        <RouterContext.Consumer>
+            {
+                context => {
+                    return (
+                        <a href={to} onClick={context.handleClick}>
+                            {children}
+                        </a>
+                    )
+                }
+            }
+        </RouterContext.Consumer>
+    )
+}
+
 class App extends Component {
     render() {
-        let Child;
-        let ChildComponent;
-        const location = window.location;
-        switch(location.pathname) {
-            case "/" :
-                Child = HomeComponent;
-                ChildComponent = List;
-                break;
-            case "/movie" :
-                Child = HomeComponent;
-                ChildComponent = Movie;
-                break;
-            default :
-                Child = NotFound;
-
-        }
         return (
-            <div> <Child content={<ChildComponent/>}/> </div>
+            <Router>
+                <div>
+                    <HomeComponent/>
+                </div>
+            </Router>
         )
     }
 }
