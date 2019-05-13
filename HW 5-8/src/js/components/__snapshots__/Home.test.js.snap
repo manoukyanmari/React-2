@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer Component renders correctly the footer 1`] = `Object {}`;
+
+exports[`Home Component renders correctly the Header for home 1`] = `
+<div
+  className="container"
+>
+  <div
+    className="jumbotron"
+  >
+    <h2>
+      NetFlix roulette
+    </h2>
+    <label
+      htmlFor="title"
+    >
+      FIND YOUR MOVIE
+    </label>
+    <Connect(ConnectedForm) />
+  </div>
+</div>
+`;

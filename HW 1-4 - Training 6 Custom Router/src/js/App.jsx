@@ -15,7 +15,7 @@ const HomeComponent = props  => (
         <Home/>
         <div className="container">
             <Route exact path="/" Component={List}/>
-            <Route exact path="/movie" Component={Movie}/>
+            <Route path="/movie" Component={Movie}/>
         </div>
     </div>
 );
@@ -26,68 +26,65 @@ const NotFound = () => (
     </div>
 );
 
-const RouterContext = React.createContext();
-const Router extends Component {
+const RouterContex = React.createContext();
+class Router extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            location: window.location
-        }
+        this.state = {location: window.location};
         this.handleClick = this.handleClick.bind(this);
     }
-    handleClick = async event =>{
+    state = { location: window.location };
+
+    handleClick = event => {
         event.preventDefault();
-        window.history.pushState(null, null, event.target.closest('a').href);
+        window.history.pushState(null, null, event.target.href);
         this.setState({ location: window.location });
     };
+
     handlePopState = () => {
         this.setState({ location: window.location });
-    }
+    };
+
     componentDidMount() {
-        window.addEventListener('popState', this.handlePopState);
+        window.addEventListener('popstate', this.handlePopState);
     }
     render() {
-        return(
-            <RouterContext.Provider value={{location: this.state.location, handleClick: this.handleclick}}>
+        return (
+            <RouterContex.Provider value={{ location: this.state.location, handleClick: this.handleClick }}>
                 {this.props.children}
-            </RouterContext.Provider>
-        )
-
+            </RouterContex.Provider>
+        );
     }
 }
 
-const Route = ({ path, component }) => {
+const Route = ({ exact, path, Component }) => {
     return (
-        <RouterContext.Consumer>
-            {
-                context => {
-                    const location = context.location;
-                    const matched = exact ? location.pathname === path : location.pathname.startsWith(path);
-                    if(matched) {
-                        return <Component />
-                    }
-                    return null;
+        <RouterContex.Consumer>
+            {context => {
+                const location = context.location;
+                const matched = exact ? location.pathname === path : location.pathname.startsWith(path);
+                if (matched) {
+                    return <Component />;
                 }
-            }
-        </RouterContext.Consumer>
-    )
-}
+                return null;
+            }}
+        </RouterContex.Consumer>
+    );
+};
 
-const link = ({ to, children }) => {
+const Link = ({ to, children }) => {
     return (
-        <RouterContext.Consumer>
-            {
-                context => {
-                    return (
-                        <a href={to} onClick={context.handleClick}>
-                            {children}
-                        </a>
-                    )
-                }
-            }
-        </RouterContext.Consumer>
-    )
-}
+        <RouterContex.Consumer>
+            {context => {
+                return (
+                    <a href={to} onClick={context.handleClick}>
+                        {children}
+                    </a>
+                );
+            }}
+        </RouterContex.Consumer>
+    );
+};
 
 class App extends Component {
     render() {

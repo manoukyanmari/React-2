@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer Component renders correctly the footer 1`] = `
+<section
+  className="footer"
+  id="footer"
+>
+  <div
+    className="container"
+  >
+    <div
+      className="row text-sm-left text-md-left"
+    >
+      <div>
+        <h6>
+          Footer Information
+        </h6>
+      </div>
+    </div>
+  </div>
+</section>
+`;
