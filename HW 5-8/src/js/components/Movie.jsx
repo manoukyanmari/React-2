@@ -1,10 +1,15 @@
-import React from "react";
+import React, {Component} from "react";
 
 const marginStyle = {
     marginTop: '30px'
 };
 
-class Movie extends React.Component {
+class Movie extends Component {
+    constructor(props) {
+        super(props);
+        console.log(props,'sss');
+    };
+
     render() {
         return (
             <div className="container">

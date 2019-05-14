@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import 'babel-polyfill';
 import {BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
 import Movie from "./Movie.jsx";
+import Root from "./../App.jsx"
 
 const mapStateToProps = state => {
     return {
@@ -27,7 +28,7 @@ class List extends Component {
                             <div className="col-12 col-sm-4 col-md-3 p-2" key={el.id}>
                                 <div className="text-center border height100">
                                     <div>
-                                        <Link to={this.props.match.url + '/movie'}>
+                                        <Link to={this.props.match.url + '/movie/' + el.id}>
                                             <img src={el.src}/>
                                         </Link>
                                     </div>
@@ -36,7 +37,7 @@ class List extends Component {
                             </div>
                         ))}
                     </div>
-                    <Route path={this.props.match.url + '/movie'} component={Movie}/>
+                    <Route path={this.props.match ? this.props.match.url + '/movie/:id' : ''} component={Movie}/>
                 </div>
 
             );

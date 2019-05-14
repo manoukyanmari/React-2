@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import uuidv1 from "uuid";
 import { addArticle } from "../../actions/action";
+import {Link} from "react-router-dom";
 function mapDispatchToProps(dispatch) {
     return {
         addArticle: article => dispatch(addArticle(article))
@@ -52,7 +53,9 @@ class ConnectedForm extends Component {
                     </div>
                     <div className="col-md-6 text-right">
                         <button type="submit" className="btn btn-success btn-lg float-right margin-for-btn">
-                            SEARCH
+                            <Link to={'/movie-list'}>
+                                SEARCH
+                            </Link>
                         </button>
                     </div>
                 </div>
