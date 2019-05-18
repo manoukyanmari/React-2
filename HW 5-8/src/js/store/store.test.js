@@ -39,11 +39,11 @@ describe('Store Has been dispatched',()=>{
                     expect(store).toEqual(renderingAttributes)
                 })
         );
-        // return store.dispatch(addArticle(rootReducer,
-        //             compose(applyMiddleware(thunk))
-        //          )).then(() => {
-        //             expect(store).toEqual(renderingAttributes)
-        //          })
+        return store.dispatch(addArticle(rootReducer,
+                    compose(applyMiddleware(thunk))
+                 )).then(() => {
+                    expect(store).toEqual(renderingAttributes)
+                 })
         })
 });
 
