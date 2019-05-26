@@ -1,15 +1,7 @@
 import React, {Component} from "react";
 import List from "./components/List.jsx";
 import Home from "./components/Home.jsx";
-import Movie from "./components/Movie.jsx";
-import Footer from "./components/Footer.jsx";
-import ReactDOM from "react-dom";
-import { Provider } from 'react-redux'
-import store from "./store/store";
-import ErrorBoundary from "./components/ErrorBoundary.jsx";
-import {BrowserRouter as Router, Route, Link, Switch, Redirect} from "react-router-dom";
-
-
+import {Route, Switch, Redirect} from "react-router-dom";
 
 const HomePage = () =>(
     <div> Welcome to our Kinoman Club </div>
@@ -32,7 +24,7 @@ class Root extends Component {
                 <Route path="/" component={Home}/>
                 <Switch>
                     <Route exact path="/" component={HomePage}/>
-                    <Route path="/movie-list" component={List}/>
+                    <Route path="/movie-list/:query" component={List}/>
                     <Redirect exact from="/movies" to="movie-list"/>
                     <Route path="*" component={NotFound}/>
                 </Switch>
@@ -52,7 +44,6 @@ const HomeComponent = props  => (
 );
 
 
-
 class App extends Component {
     render() {
         return (
@@ -60,21 +51,6 @@ class App extends Component {
         )
     }
 }
-
-const routing = (
-    <ErrorBoundary>
-        <Provider store={store}>
-            <div>
-                <Router>
-                    <App/>
-                </Router>
-                <Footer />
-            </div>
-        </Provider>
-    </ErrorBoundary>
-);
-
-ReactDOM.render(routing, document.getElementById("root"));
 
 export default App;
 

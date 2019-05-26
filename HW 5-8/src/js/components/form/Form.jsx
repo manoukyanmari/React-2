@@ -2,15 +2,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import uuidv1 from "uuid";
-import { addArticle } from "../../actions/action";
+import { addArticles } from "../../actions/action";
 import {Link} from "react-router-dom";
 
 
 function mapDispatchToProps(dispatch) {
     return {
-        addArticle: article => dispatch(
-            addArticle(article)
-        )
+        addArticles: articles => dispatch(addArticles(articles))
     };
 }
 // smart component
@@ -33,11 +31,11 @@ class ConnectedForm extends Component {
     handleSubmit(event) {
         event.preventDefault();
         const { query } = this.state;
-        var title = "New Machinist Query";
-        this.props.articles = [];
+        //var title = "New Machinist Query";
+        console.log(this.props, 'dsdsdsd');
         for (var i = 0; i < 5; i++) {
             const id = uuidv1();
-            this.props.addArticle({ query, id, src: '../../../src/imgs/machinist.JPG' });
+            this.props.addArticles({  query: query });
         }
         console.log(query, 'query');
         this.setState({ query: query });
@@ -73,8 +71,9 @@ class ConnectedForm extends Component {
                     </div>
                 </div>
             </form>
-                {/*{ this.props.searchResults.length > 0 ? <Row type={`Results for "${this.state.query}"`} items={this.props.searchResults} /> : null }*/}
-
+                {/*{ this.props.articles.length > 0 ?*/}
+                    {/*<Row type={`Results for "${this.state.query}"`}*/}
+                         {/*items={this.props.articles} /> : null }*/}
             </div>
         );
     }

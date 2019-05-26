@@ -12,7 +12,6 @@ const mapStateToProps = state => {
     };
 };
 
-
 //dumb component
 class List extends Component {
     constructor(props) {
@@ -21,7 +20,7 @@ class List extends Component {
     };
 
     componentDidMount() {
-        console.log(this.props.location.search) // "?filter=top&origin=im"
+        console.log(this.props.location.search,'dfd') // "?filter=top&origin=im"
     }
     render() {
             const ConnectedList = ({ articles }) => (
