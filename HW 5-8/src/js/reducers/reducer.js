@@ -1,19 +1,10 @@
-// import { ADD_ARTICLE } from "../constants/action-types";
-
-// function rootReducer(state = initialState, action) {
-//     if (action.type === ADD_ARTICLE) {
-//
-//     }
-//     return state;
-// }
-
 import * as ACTIONS from "../constants/action-types";
 
-console.log(ACTIONS, 'sdd');
 const initialState = {
     content: {},
     loading: true,
-    articles: []
+    articles: [],
+    query: ''
 };
 
 const rootReducer = (state = initialState, action) => {

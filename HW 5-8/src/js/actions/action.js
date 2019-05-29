@@ -30,7 +30,7 @@ export const searchCancelled = () =>
             articles: []
         });
 
-export const returnSearchContent = articles =>
+export const returnFoundArticles = articles =>
     dispatch =>
         dispatch({
             type: RETURN_SEARCH_CONTENT,
