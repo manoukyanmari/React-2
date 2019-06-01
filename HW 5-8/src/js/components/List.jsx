@@ -7,33 +7,69 @@ import Movie from "./Movie.jsx";
 import Root from "./../App.jsx";
 
 const mapStateToProps = state => {
+    console.log(state.articles, 'sdsdsdsdsd MARIII');
     return {
         articles: state.articles
     };
 };
 
 
+const imgStyle = {
+    maxWidth: '100%'
+};
 //dumb component
 class List extends Component {
     constructor(props) {
         super(props);
+       // this.setState({articles: []});
         console.log(props,'aaaa');
+  //      this.componentDidMount = this.componentDidMount.bind(this);
+     //   this.shouldComponentUpdate = this.shouldComponentUpdate.bind(this);
     };
 
-    componentDidMount() {
-        console.log(this.props.location.search) // "?filter=top&origin=im"
-    }
+    // componentDidMount() {
+    //     this.setState({articles: []});
+    //     setInterval(() => {
+    //         this.setState(() => {
+    //             this.shouldComponentUpdate();
+    //             console.log('setting state');
+    //             return { unseen: "does not display" }
+    //         });
+    //     }, 1000);
+    // }
+    //
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     if(this.props) {
+    //         console.log(nextProps, 'sdsdsdsdsd MMMAAAAYOOO');
+    //         if (this.props.number === nextProps.number) {
+    //             return false;
+    //         } else {
+    //             return true;
+    //         }
+    //     }
+    // }
+
+
+    // componentWillReceiveProps(nextProps) {
+    //     console.log(nextProps, 'sdsdssd MARRRRRRR');
+    //     this.setState({
+    //         articles: [],
+    //
+    //     });
+    //
+    // }
+
     render() {
-            const ConnectedList = ({ articles }) => (
+            const ConnectedList = ({ articles = [] }) => (
                 <div className="row mt-5">
                     <div className="container">
                         <Route path={this.props.match ? this.props.match.url + '/movie/:id' : ''} component={Movie}/>
                         {articles.map(el => (
-                            <div className="col-12 col-sm-4 col-md-3 p-2" key={el.id}>
+                            <div className="col-2 col-sm-4 col-md-3 p-2" key={el.id}>
                                 <div className="text-center border height100">
                                     <div>
                                         <Link to={this.props.match.url + '/movie/' + el.id}>
-                                            <img src={el.src}/>
+                                            <img style={imgStyle} src={el.poster_path}/>
                                         </Link>
                                     </div>
                                     <h5>{el.title}</h5>
