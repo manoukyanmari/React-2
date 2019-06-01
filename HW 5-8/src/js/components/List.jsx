@@ -7,6 +7,7 @@ import Movie from "./Movie.jsx";
 import Root from "./../App.jsx";
 
 const mapStateToProps = state => {
+    console.log(state, 'dsdsssdsdsdsdfsfs25656');
     return {
         articles: state.articles
     };
@@ -16,13 +17,24 @@ const mapStateToProps = state => {
 class List extends Component {
     constructor(props) {
         super(props);
-        console.log(props,'aaaa');
+        const originalProps = this.props;
+        this.state = {
+            query: this.state.query? this.state.wuery : ''
+        };
+        try {
+            this.props = props;
+            // ...
+        } finally {
+            this.props = originalProps;
+        }
+        console.log(props,'ASSASAS');
     };
 
     componentDidMount() {
-        console.log(this.props.location.search,'dfd') // "?filter=top&origin=im"
+      //  const {articles} = this.state;
     }
     render() {
+        console.log(this.state,'dfsddfsdf');
             const ConnectedList = ({ articles }) => (
                 <div className="row mt-5">
                     <div className="container">

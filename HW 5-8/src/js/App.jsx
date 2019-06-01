@@ -1,7 +1,7 @@
 import React, {Component} from "react";
-import List from "./components/List.jsx";
 import Home from "./components/Home.jsx";
 import {Route, Switch, Redirect} from "react-router-dom";
+import List from "./components/List.jsx";
 
 const HomePage = () =>(
     <div> Welcome to our Kinoman Club </div>

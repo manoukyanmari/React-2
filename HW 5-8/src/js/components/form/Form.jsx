@@ -4,9 +4,9 @@ import { connect } from "react-redux";
 import uuidv1 from "uuid";
 import store from "../../store/store"
 import * as actions from "../../actions/action";
-import {Link} from "react-router-dom";
+import {Redirect, Route} from "react-router-dom";
 import {corsAJAX} from "../../actions/helpers";
-
+import List from "../List.jsx";
 
 
 const ROOT_URL = "https://reactjs-cdp.herokuapp.com/";
@@ -17,8 +17,10 @@ class ConnectedForm extends Component {
     constructor(props) {
         super(props);
         //
+        console.log(props,'sdsds');
+
         this.state = {
-            query: ''
+            query: this.state ? this.state.query : ''
         };
         this.onChangeQuery = this.onChangeQuery.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,23 +29,21 @@ class ConnectedForm extends Component {
 
     onChangeQuery = (event) => {
         this.setState({query: event.target.value});
-       // this.setRequest(event.target.value)
     };
 
     componentDidMount() {
         const urlParams = new URLSearchParams(window.location.search);
+        console.log(urlParams, 'params');
         const q = urlParams.get('query');
         this.state = {
             query: q? q : '',
         };
-        if(this.state.query) {
-            this.setRequest(q);
-        }
+       // this.props.history.push('/movie-list?query=' + this.state.query);
     }
 
     setRequest = (val) => {
-        this.setState({query: val});
-
+        this.props.history.push('/movie-list?query=' + this.state.query);
+        console.log(this.state, 'state');
         fetch(`${ROOT_URL}movies?searchBy=genres&search=${val}`)
             .then(res => res.json())
             .then(
@@ -51,6 +51,8 @@ class ConnectedForm extends Component {
                     this.setState({
                         articles: result.data
                     });
+                    console.log(this.state, 'ssssstate');
+
                 },
                 (error) => {
                     this.setState({
@@ -64,24 +66,13 @@ class ConnectedForm extends Component {
     handleSubmit = event => {
         event.preventDefault();
         const { query } = this.state;
-        console.log(query, 'dsd');
-        this.setRequest(query);
-
-        //
-        // //store.dispatch(addArticles(query));
-        // corsAJAX(`${ROOT_URL}/search/query=${query}`, 'GET').map(res => res.response.results.filter(content => {
-        //     console.log(content, 'sdsd');
-        //    // return content
-        // }))
-        //var title = "New Machinist Query";
-        // console.log(this.props, 'dsdsdsd');
-        // for (var i = 0; i < 5; i++) {
-        //     const id = uuidv1();
-        //     this.props.addArticles({  query: query });
-        // }
-        // console.log(query, 'query');
-       // this.setState({ query });
+       console.log(query, 'dsd');
+        if(this.state.query) {
+            this.setState({query: query});
+            this.setRequest(query);
+        }
     };
+
     render() {
         return (<div>
             <form onSubmit={this.handleSubmit}>
@@ -105,16 +96,12 @@ class ConnectedForm extends Component {
                     </div>
                     <div className="col-md-6 text-right">
                         <button type="submit" className="btn btn-success btn-lg float-right margin-for-btn">
-                            <Link to={'/movie-list?query=' + this.state.query}>
                                 SEARCH
-                            </Link>
                         </button>
                     </div>
                 </div>
             </form>
-                {/*{ this.props.articles.length > 0 ?*/}
-                    {/*<Row type={`Results for "${this.state.query}"`}*/}
-                         {/*items={this.props.articles} /> : null }*/}
+
             </div>
         );
     }
