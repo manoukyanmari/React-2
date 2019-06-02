@@ -4,15 +4,8 @@
   "description": "",
   "main": "main.js",
   "dependencies": {
-    "axios": "^0.18.0",
-    "dotenv": "^8.0.0",
     "lodash": "^4.17.11",
-    "moment": "^2.24.0",
-    "most": "^1.7.3",
-    "redux-devtools": "^3.5.0",
-    "redux-logger": "^3.0.6",
-    "redux-observable": "^1.1.0",
-    "rxjs-compat": "^6.5.2"
+    "moment": "^2.24.0"
   },
   "jest": {
     "snapshotSerializers": [

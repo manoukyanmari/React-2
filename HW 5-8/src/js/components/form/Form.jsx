@@ -2,57 +2,62 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import uuidv1 from "uuid";
-import store from "../../store/store"
 import * as actions from "../../actions/action";
-import {Redirect, Route} from "react-router-dom";
-import {corsAJAX} from "../../actions/helpers";
-import List from "../List.jsx";
+import {Link} from "react-router-dom";
+import {ROOT_URL} from "../../constants/action-types";
 
 
-const ROOT_URL = "https://reactjs-cdp.herokuapp.com/";
+function mapDispatchToProps(dispatch) {
+    return {
+        addArticles: article => dispatch(
+            actions.addArticle(article)
+        ),
+        removeArticles: () => dispatch(
+            actions.deleteAllArticles()
+        )
+    };
+}
+
 
 
 // smart component
 class ConnectedForm extends Component {
     constructor(props) {
         super(props);
-        //
-        console.log(props,'sdsds');
-
+        const urlParams = new URLSearchParams(window.location.search);
+        const query = urlParams.get('query');
+        var type = 'title';
         this.state = {
-            query: this.state ? this.state.query : ''
+            query: query? query: '',
+            type: type? type: 'title',
+            articles: []
         };
-        this.onChangeQuery = this.onChangeQuery.bind(this);
+        //this.articles = this.state.articles;
+        this.fetchData = this.fetchData.bind(this);
+       // this.fetchData(this.state.query, this.state.type);
+        this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.setRequest = this.setRequest.bind(this);
+        this.onClickType = this.onClickType.bind(this);
     }
 
-    onChangeQuery = (event) => {
-        this.setState({query: event.target.value});
+    componentDidMount(){
+        this.props.removeArticles();
+    }
+    handleChange = (event) => {
+        this.setState({ query: event.target.value});
     };
 
-    componentDidMount() {
-        const urlParams = new URLSearchParams(window.location.search);
-        console.log(urlParams, 'params');
-        const q = urlParams.get('query');
-        this.state = {
-            query: q? q : '',
-        };
-       // this.props.history.push('/movie-list?query=' + this.state.query);
-    }
-
-    setRequest = (val) => {
-        this.props.history.push('/movie-list?query=' + this.state.query);
-        console.log(this.state, 'state');
-        fetch(`${ROOT_URL}movies?searchBy=genres&search=${val}`)
+    fetchData = (query, type) => {
+       // const { query, type } = this.state;
+        fetch(`${ROOT_URL}movies?searchBy=${type}&search=${query}`)
             .then(res => res.json())
             .then(
                 (result) => {
-                    this.setState({
-                        articles: result.data
+                    this.props.removeArticles();
+                    result.data.map((item, i) => {
+                        // Return the element. Also pass key
+                        this.props.addArticles(item);
                     });
-                    console.log(this.state, 'ssssstate');
-
                 },
                 (error) => {
                     this.setState({
@@ -60,64 +65,57 @@ class ConnectedForm extends Component {
                         error
                     });
                 }
-            )
+            );
     };
 
     handleSubmit = event => {
         event.preventDefault();
-        const { query } = this.state;
-       console.log(query, 'dsd');
-        if(this.state.query) {
-            this.setState({query: query});
-            this.setRequest(query);
-        }
+        const { query, type } = this.state;
+        this.fetchData(query, type);
+       // this.setState({ articles: []});
+
+
+    };
+
+    onClickType = (type) => {
+        this.setState({type: type, articles: []})
     };
 
     render() {
-        return (<div>
-            <form onSubmit={this.handleSubmit}>
-                <div className="form-group text-right">
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="query"
-                        value={this.state.query}
-                        onChange={this.onChangeQuery}/>
-                </div>
-                <div className="row">
-                    <div className="col-md-6">
-                        <span>SEARCH BY: </span>
-                        <button type="button" id="query" className="btn btn-primary btn-lg float-left margin-for-btn">
-                            TITLE
-                        </button>
-                        <button type="button" id="title" className="btn btn-primary btn-lg float-left margin-for-btn">
-                            GENRE
-                        </button>
-                    </div>
-                    <div className="col-md-6 text-right">
-                        <button type="submit" className="btn btn-success btn-lg float-right margin-for-btn">
-                                SEARCH
-                        </button>
-                    </div>
-                </div>
-            </form>
+        const { query } = this.state;
 
+        return (
+            <div>
+                <form onSubmit={this.handleSubmit}>
+                    <div className="form-group text-right">
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="query"
+                            value={query}
+                            onChange={this.handleChange}/>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-6">
+                            <span>SEARCH BY: </span>
+                            <button type="button" id="query" className="btn btn-primary btn-lg float-left margin-for-btn" onClick={() => this.onClickType('title')}>
+                                TITLE
+                            </button>
+                            <button type="button" id="title" className="btn btn-primary btn-lg float-left margin-for-btn" onClick={() => this.onClickType('genres')}>
+                                GENRE
+                            </button>
+                        </div>
+                        <div className="col-md-6 text-right">
+                            <button type="submit" className="btn btn-success btn-lg float-right margin-for-btn"
+                                onClick={() => this.props.history.push('/search?query=' + this.state.query)}>
+                                SEARCH
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         );
     }
 }
-
-
-const mapStateToProps = ({ articles }) => {
-    console.log(articles);
-    return { articles: articles };
-};
-function mapDispatchToProps(dispatch) {
-    return {
-        addArticles: articles => dispatch(addArticles(articles))
-    };
-}
-const Form = connect(mapStateToProps, actions)(ConnectedForm);
-
-
+const Form = connect(null, mapDispatchToProps)(ConnectedForm);
 export default Form;

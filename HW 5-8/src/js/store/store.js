@@ -1,17 +1,9 @@
-import { createStore, applyMiddleware } from 'redux';
-import { createEpicMiddleware } from 'redux-observable';
-import { rootEpic } from './appliedActions';
-import rootReducer from '../reducers/reducer';
+// src/js/store/store.js
+import { createStore } from "redux";
+import rootReducer from "../reducers/reducer";
+import {addArticle} from "../actions/action";
 
-const epicMiddleware = createEpicMiddleware();
-
-export default function configureStore() {
- const store = createStore(
-     rootReducer,
-     applyMiddleware(epicMiddleware)
- );
-
- epicMiddleware.run(rootEpic);
-
- return store;
-}
+const store = createStore(rootReducer);
+// store.subscribe(() => console.log('Look ma, Redux!!'));
+// store.dispatch( addArticle({ title: 'React Redux Tutorial for Beginners', id: 1, src: '../../../src/imgs/machinist.JPG' }));
+export default store;

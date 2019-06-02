@@ -7,7 +7,6 @@ class ErrorBoundary extends Component {
             hasError: false,
             logErrorToMyService: function(error, info) {
                 console.log(error, 'error');
-                console.log(info, 'infooo');
             }
         };
     }
