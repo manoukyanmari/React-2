@@ -9,8 +9,6 @@ import store from "./store/store";
 import ErrorBoundary from "./components/ErrorBoundary.jsx";
 import {BrowserRouter as Router, Route, Link, Switch, Redirect} from "react-router-dom";
 
-
-
 const HomePage = () =>(
     <div> Welcome to our Kinoman Club </div>
 );
@@ -24,7 +22,6 @@ const NotFound = () => (
 class Root extends Component {
     constructor(props) {
         super(props);
-        console.log(props,'aaaa');
     };
     render() {
         return (
@@ -32,15 +29,15 @@ class Root extends Component {
                 <Route path="/" component={Home}/>
                 <Switch>
                     <Route exact path="/" component={HomePage}/>
-                    <Route path="/movie-list" component={List}/>
-                    <Redirect exact from="/movies" to="movie-list"/>
+                    <Route path="/search" component={List}/>
+                    <Route path="/movie/:id" component={Movie}/>
+                    <Redirect exact from="/movies" to="search"/>
                     <Route path="*" component={NotFound}/>
                 </Switch>
             </div>
         )
     }
 }
-
 
 //dumb component
 const HomeComponent = props  => (

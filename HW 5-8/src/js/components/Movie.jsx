@@ -1,35 +1,73 @@
 import React, {Component} from "react";
+import {ROOT_URL} from "../constants/action-types";
+import Moment from 'moment';
+import axios from 'axios';
 
 const marginStyle = {
     marginTop: '30px'
 };
 
+const imgStyle = {
+    maxWidth: '80%'
+};
+
 class Movie extends Component {
+    // componentDidMount() {
+    //     console.log(this.props);
+    //     const { match: { params } } = this.props;
+    //
+    //     axios.get(`/api/users/${params.id}`)
+    //         .then(({ data: movie }) => {
+    //             console.log('user', movie);
+    //
+    //             this.setState({ movie });
+    //         });
+    // }
     constructor(props) {
         super(props);
-        console.log(props,'sss');
+            this.state = {movie: {}};
+            fetch(`${ROOT_URL}movies/${props.match.params.id}`)
+                .then(res => res.json())
+                .then(
+                    (result) => {
+                        this.setState({movie:result});
+
+                    },
+                    (error) => {
+                        this.setState({
+                            isLoaded: true,
+                            error
+                        });
+                    }
+                );
     };
 
     render() {
+        const {movie} = this.state;
         return (
             <div className="container">
                 <div className="jumbotron col-md-12">
                     <div className="col-md-4">
-                        <img src="../../../src/imgs/machinist.JPG"/>
+                        <img style={imgStyle} src={movie.poster_path}/>
                     </div>
                     <div className="col-md-8">
                         <div className="row">
-                            <h2>Machinist</h2>
-                            <div className="row">
-                                <label htmlFor="title">Oscar-winning Movies</label>
+                            <h2>{movie.title}</h2>
+                            <div>
+                                <span>Genre: </span>
+                                <label htmlFor="title">
+                                    {movie.genres? movie.genres.map(function(name, index){
+                                        return <span key={ index }>{name}, </span>;
+                                    }) : ''}
+                                    </label>
                             </div>
                             <div className="row">
-                                <div className="col-md-3 text-left">1994</div>
-                                <div className="col-md-3 text-right">154 min</div>
+                                <div className="col-md-3 text-left">{Moment(movie.release_date).format('YYYY-MM-DD')}</div>
+                                <div className="col-md-3 text-right">{movie.runtime}</div>
                             </div>
                         </div>
                         <div className="row" style={marginStyle}>
-                            Trevor Reznik (Christian Bale) is a machinist whose insomnia has led to his becoming emaciated. His appearance and behavior keep his coworkers away, and they eventually turn against him when he is involved in an accident which causes his coworker, Miller, to lose his left arm. Trevor, who was distracted by an unfamiliar co-worker named Ivan, is blamed for the accident. No one at the factory knows of Ivan and there are no records of him. Trevor seems to find peace only with Stevie, a prostitute with genuine affection for him, and with Maria, a waitress at an airport diner he frequents. He is haunted by brief flashes of recurring imagery, and things such as his car cigarette lighter take on a menacing air. A mysterious series of post-it notes appear on his refrigerator, depicting a game of hangman.
+                            {movie.overview}
                         </div>
                     </div>
                 </div>

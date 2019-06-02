@@ -14,7 +14,6 @@ import {
 import thunk from 'redux-thunk';
 export function getDueDates() {
     return dispatch => {
-        console.log("IN ACTION");
         fetchDueDates().done(
             dueDates => dispatch(getDueDatesOptimistic(dueDates.entity._embedded.dueDates))
         )
