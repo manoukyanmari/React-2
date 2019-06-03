@@ -12,7 +12,7 @@ exports[`There is an initial component and error test renders correctly the stor
         Symbol(observable): [Function],
       },
       "storeState": Object {
-        "articles": Array [
+        "movies": Array [
           Object {
             "id": 1,
             "src": "../../../src/imgs/machinist.JPG",

@@ -6,7 +6,7 @@ import 'babel-polyfill';
 
 const mapStateToProps = state => {
     return {
-        articles: state.articles
+        movies: state.movies
     };
 };
 
@@ -18,10 +18,10 @@ class List extends Component {
     };
 
     render() {
-            const ConnectedList = ({ articles }) => (
+            const ConnectedList = ({ movies }) => (
                     <div className="row mt-5">
                         <div className="container">
-                            {articles.map(el => (
+                            {movies.map(el => (
                                 <div className="col-12 col-sm-4 col-md-3 p-2" key={el.id}>
                                     <div className="text-center border height100">
                                         <div>

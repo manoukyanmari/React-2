@@ -3,7 +3,7 @@ import store from "./store";
 import Adapter from 'enzyme-adapter-react-16';
 import { configure } from 'enzyme';
 import jest from 'jest-mock';
-import {addArticle} from "../actions/action";
+import {addMovie} from "../actions/action";
 configure({ adapter: new Adapter() });
 import rootReducer from "../reducers/reducer";
 import {
@@ -27,18 +27,17 @@ describe('Store Has been dispatched',()=>{
             id: 1,
             src: '../../../src/imgs/machinist.JPG'
         };
-       // let type = 'ADD_ARTICLE';
-       // let payload = {"payload": "type", "type": type};
+
         let renderingAttributes = [{ title: attrs.title, id: attrs.id, src: attrs.src }];
         const store = createStore(rootReducer,
             compose(applyMiddleware(thunk))
         );
         store().done(
-            renderingAttributes => store.dispatch(addArticle).then(() => {
+            renderingAttributes => store.dispatch(addMovie).then(() => {
                     expect(store).toEqual(renderingAttributes)
                 })
         );
-        return store.dispatch(addArticle(rootReducer,
+        return store.dispatch(addMovie(rootReducer,
                     compose(applyMiddleware(thunk))
                  )).then(() => {
                     expect(store).toEqual(renderingAttributes)

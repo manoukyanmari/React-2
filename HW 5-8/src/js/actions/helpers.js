@@ -1,6 +1,6 @@
 // HELPER FUNCTIONS
 import moment from 'moment';
-import { ajax } from '../../../node_modules/rxjs/observable/dom/ajax';
+import { ajax } from 'rxjs/ajax';
 
 export const formatYear = date => moment(date, 'YYYY/MM/DD').year();
 

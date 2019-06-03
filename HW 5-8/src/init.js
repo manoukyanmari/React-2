@@ -12,13 +12,8 @@ import { createEpicMiddleware, ofType } from 'redux-observable';
 import { createStore, applyMiddleware, compose } from "redux";
 import React from "react";
 
-
-const epicMiddleware = createEpicMiddleware();
-const store = createStore(
-    rootReducer,
-    applyMiddleware(epicMiddleware)
-);
-epicMiddleware.run(rootEpic);
+const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+const store = createStoreWithMiddleware(rootReducer);
 
 const routing = (
     < ErrorBoundary >

@@ -7,12 +7,12 @@ configure({ adapter: new Adapter() });
 
 describe('Reducer Has been run',()=>{
     const initialState = {
-        articles: []
+        movies: []
     };
     const mockFunction = jest.fn();
     it('renders correctly the Reducer', () => {
-        let articles = {articles: initialState.articles};
-        expect(rootReducer(initialState, mockFunction)).toEqual(articles);
+        let movies = {movies: initialState.movies};
+        expect(rootReducer(initialState, mockFunction)).toEqual(movies);
     })
 });
 
