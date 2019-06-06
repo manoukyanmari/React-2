@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {ROOT_URL} from "../constants/action-types";
 import Moment from 'moment';
-import axios from 'axios';
 
 const marginStyle = {
     marginTop: '30px'
