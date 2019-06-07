@@ -1,0 +1,68 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+::-webkit-input-placeholder {
+  font-weight: normal;
+  color: #999 !important;
+}
+
+:-moz-placeholder {
+  /* Firefox 18- */
+  font-weight: normal;
+  color: #999 !important;
+}
+
+::-moz-placeholder {
+  /* Firefox 19+ */
+  font-weight: normal;
+  color: #999 !important;
+}
+
+:-ms-input-placeholder {
+  font-weight: normal;
+  color: #999 !important;
+}
+
+.placeholderMock {
+  font-weight: normal;
+  color: #999 !important;
+}
+
+input[type='text'][readonly] {
+  cursor: pointer;
+}
+
+input[type='checkbox'] {
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  border: none;
+}
+
+input[type='checkbox']:focus,
+input[type='checkbox']:active {
+  border: default;
+}
+
+input[type="text"]::-ms-clear {
+  width: 0;
+  height: 0;
+}
+
+input[type="password"]::-ms-reveal {
+  width: 0;
+  height: 0;
+}
+
+hr {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}

@@ -5,18 +5,8 @@ import uuidv1 from "uuid";
 import * as actions from "../../actions/action";
 import {Link} from "react-router-dom";
 import {ROOT_URL} from "../../constants/action-types";
+import * as appliedActions from "../../store/appliedActions";
 
-
-function mapDispatchToProps(dispatch) {
-    return {
-        addArticles: article => dispatch(
-            actions.addArticle(article)
-        ),
-        removeArticles: () => dispatch(
-            actions.deleteAllArticles()
-        )
-    };
-}
 
 
 
@@ -30,55 +20,46 @@ class ConnectedForm extends Component {
         this.state = {
             query: query? query: '',
             type: type? type: 'title',
-            articles: []
+            movies: []
         };
-        //this.articles = this.state.articles;
+        //this.movies = this.state.movies;
         this.fetchData = this.fetchData.bind(this);
-       // this.fetchData(this.state.query, this.state.type);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onClickType = this.onClickType.bind(this);
+        let self = this;
     }
 
     componentDidMount(){
-        this.props.removeArticles();
+        this.props.removeMovies();
     }
     handleChange = (event) => {
         this.setState({ query: event.target.value});
     };
 
     fetchData = (query, type) => {
-       // const { query, type } = this.state;
-        fetch(`${ROOT_URL}movies?searchBy=${type}&search=${query}`)
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    this.props.removeArticles();
-                    result.data.map((item, i) => {
-                        // Return the element. Also pass key
-                        this.props.addArticles(item);
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            );
+        let data = actions.getMoviesData();
     };
+
+
 
     handleSubmit = event => {
         event.preventDefault();
         const { query, type } = this.state;
-        this.fetchData(query, type);
-       // this.setState({ articles: []});
+        console.log(query, 'query');
+        appliedActions.getMovies(query, type);
+        this.props.removeMovies();
+        let func = this.fetchData;
+        setTimeout(function () {
+            func();
+        }, 3000)
+       // this.setState({ movies: []});
 
 
     };
 
     onClickType = (type) => {
-        this.setState({type: type, articles: []})
+        this.setState({type: type, movies: []})
     };
 
     render() {
@@ -117,5 +98,24 @@ class ConnectedForm extends Component {
         );
     }
 }
-const Form = connect(null, mapDispatchToProps)(ConnectedForm);
-export default Form;
+
+
+const mapDispatchToProps = (dispatch) => ({
+    onGettingFilms: () => dispatch(appliedActions.getMovies),
+    addMovies: movie => dispatch(
+        actions.addMovie(movie)
+    ),
+    removeMovies: () => dispatch(
+        actions.deleteAllMovies()
+    )
+});
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        movies: state.movies,
+        movie: state.movie
+    };
+};
+
+export default connect(mapStateToProps,
+    mapDispatchToProps)(ConnectedForm);

@@ -1,9 +1,15 @@
 // src/js/actions/action.js
-import { ADD_ARTICLE } from "../constants/action-types";
-import { REMOVE_ARTICLE } from "../constants/action-types";
-export function addArticle(payload) {
-    return { type: ADD_ARTICLE, payload };
+import {ADD_MOVIE, MOVIES_REQUEST_SUCCESS, FIND_MOVIE_SUCCESS, REMOVE_MOVIES} from "../constants/action-types";
+
+export function addMovie(payload) {
+    return { type: ADD_MOVIE, payload };
 }
-export function deleteAllArticles() {
-    return {type: REMOVE_ARTICLE,};
+export function getMoviesData(payload) {
+    return { type: MOVIES_REQUEST_SUCCESS, payload };
+}
+export function getMovieData(payload) {
+    return { type: FIND_MOVIE_SUCCESS, payload };
+}
+export function deleteAllMovies() {
+    return {type: REMOVE_MOVIES,};
 }

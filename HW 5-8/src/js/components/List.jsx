@@ -7,7 +7,7 @@ import Root from "./../App.jsx";
 
 const mapStateToProps = state => {
     return {
-        articles: state.articles
+        movies: state.movies
     };
 };
 
@@ -26,11 +26,14 @@ class List extends Component {
         };
     };
     render() {
-            const ConnectedList = ({ articles }) => (
+
+        console.log(this.props.movies, 'stugum');
+        console.log(this.state.movies, 'stugum');
+            const ConnectedList = ({ movies }) => (
                 <div className="row mt-5">
                     <div className="container">
                         <Route path={this.props.match ? this.props.match.url + '/movie/:id' : ''} component={Movie}/>
-                        {articles.map(el => (
+                        {movies.map(el => (
                             <div className="col-2 col-sm-4 col-md-3 p-2" key={el.id}>
                                 <div className="text-center border height100">
                                     <div>
@@ -52,7 +55,6 @@ class List extends Component {
                 )
     }
 }
-
 
 export default List;
 

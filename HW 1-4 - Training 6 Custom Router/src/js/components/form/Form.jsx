@@ -2,10 +2,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import uuidv1 from "uuid";
-import { addArticle } from "../../actions/action";
+import { addMovie } from "../../actions/action";
 function mapDispatchToProps(dispatch) {
     return {
-        addArticle: article => dispatch(addArticle(article))
+        addMovie: movie => dispatch(addMovie(movie))
     };
 }
 // smart component
@@ -25,7 +25,7 @@ class ConnectedForm extends Component {
         event.preventDefault();
         const { title } = this.state;
         const id = uuidv1();
-        this.props.addArticle({ title, id, src: '../../../src/imgs/machinist.JPG' });
+        this.props.addMovie({ title, id, src: '../../../src/imgs/machinist.JPG' });
         this.setState({ title: "" });
     }
     render() {
