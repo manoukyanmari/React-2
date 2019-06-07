@@ -1,5 +1,4 @@
 import { combineEpics, ofType } from 'redux-observable';
-import { corsAJAX } from '../actions/helpers';
 
 import {
     ADD_MOVIE,
@@ -22,16 +21,17 @@ export const getMovies = (text, type) => {
         fetch(`${ROOT_URL}movies?search=${text}&searchBy=${type}`)
             .then(res => res.json())
             .then( data => {
+                mapDispatchToProps(movieRequestSuccess(data));
                 console.log(data, 'dataaa');
-                getMovies(data.genres, 'genres');
-            //    mapDispatchToProps(movieRequestSuccess(data));
+                //getMovies(data.genres, 'genres');
+
             });
     };
 
 const mapDispatchToProps = dispatch => {
     return {
-        getMovies: (email, password) => {
-            dispatch(getMovies(email, password));
+        getMovies: (text, type) => {
+            dispatch(getMovies(text, type));
         }
     }
 };
@@ -48,6 +48,9 @@ export const getMovie = (id) => {
 };
 
 export const movieRequestSuccess = (movies) => ({
+    hola: function() {
+      console.log(movies, 'movies');
+    },
     type: MOVIES_REQUEST_SUCCESS,
     payload: {
         movies: movies.data,

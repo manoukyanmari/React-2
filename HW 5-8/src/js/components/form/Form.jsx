@@ -24,10 +24,10 @@ class ConnectedForm extends Component {
         };
         //this.movies = this.state.movies;
         this.fetchData = this.fetchData.bind(this);
-       // this.fetchData(this.state.query, this.state.type);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onClickType = this.onClickType.bind(this);
+        let self = this;
     }
 
     componentDidMount(){
@@ -38,32 +38,21 @@ class ConnectedForm extends Component {
     };
 
     fetchData = (query, type) => {
-
-       // // const { query, type } = this.state;
-       //  fetch(`${ROOT_URL}movies?searchBy=${type}&search=${query}`)
-       //      .then(res => res.json())
-       //      .then(
-       //          (result) => {
-       //              this.props.removeMovies();
-       //              result.data.map((item, i) => {
-       //                  // Return the element. Also pass key
-       //                  this.props.addMovies(item);
-       //              });
-       //          },
-       //          (error) => {
-       //              this.setState({
-       //                  isLoaded: true,
-       //                  error
-       //              });
-       //          }
-       //      );
+        let data = actions.getMoviesData();
     };
+
+
 
     handleSubmit = event => {
         event.preventDefault();
         const { query, type } = this.state;
         console.log(query, 'query');
-        onGettingFilms(query, type);
+        appliedActions.getMovies(query, type);
+        this.props.removeMovies();
+        let func = this.fetchData;
+        setTimeout(function () {
+            func();
+        }, 3000)
        // this.setState({ movies: []});
 
 
@@ -124,8 +113,6 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state, ownProps) => {
     return {
         movies: state.movies,
-
-        
         movie: state.movie
     };
 };
