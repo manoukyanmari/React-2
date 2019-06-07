@@ -4,6 +4,7 @@ import MovieDesc from "../movie-desc/movie-desc";
 import {getMovie} from "../../../js/actions/movie-action";
 import {connect} from "react-redux";
 import '../../../style.scss';
+import '../header/header.scss'
 
 class HeaderDetailed extends PureComponent {
 

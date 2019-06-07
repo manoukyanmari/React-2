@@ -9,14 +9,15 @@ module.exports = ({mode}) => {
 
     return {
         mode,
-        entry: "./src/index.js",
+        entry: "./client-side/src/index.js",
         output: {
             path: path.join(__dirname, "/dist"),
+            publicPath: "http://localhost:3000/dist",
             filename: "index_bundle.js"
         },
         devServer: {
             historyApiFallback: true,
-            contentBase: "./public/",
+            contentBase: "./client-side/public/",
             port: 3000,
             publicPath: "http://localhost:3000/dist"
         },
@@ -44,7 +45,7 @@ module.exports = ({mode}) => {
             new HtmlWebPackPlugin({
                 hash: true,
                 filename: "index.html",  //target html
-                template: "./public/index.html" //source html
+                template: "./client-side/public/index.html" //source html
             }),
         ]
     }

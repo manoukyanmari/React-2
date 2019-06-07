@@ -4,6 +4,7 @@ import Button from "../button/button";
 import {getMovies} from "../../../js/actions/movie-action";
 import {connect} from "react-redux";
 import '../../../style.scss';
+import './header.scss'
 
 
 const mapDispatchToProps = (dispatch) => ({
@@ -34,7 +35,7 @@ class Header extends PureComponent {
     }
 
     componentDidMount() {
-        if(this.props.match.url !== '/') {
+        if (this.props.match.url !== '/') {
             const search = this.props.match.params.search.substr(7);
             const type = this.props.match.params.genres.substr(5);
             this.props.runGettingMovieData(search, type)
@@ -42,7 +43,7 @@ class Header extends PureComponent {
     }
 
     handleSearchBy(key) {
-        this.setState({searchBy : key});
+        this.setState({searchBy: key});
     };
 
     search() {
@@ -59,36 +60,44 @@ class Header extends PureComponent {
 
             <div className="container">
                 <div className="header roulette-background">
-                    <h2>NetFlix roulette</h2>
-                            <label htmlFor="title">FIND YOUR MOVIE</label>
-                            <form onSubmit={this.handleSubmit}>
+                    <h1 className="text-white font-weight-bold margin-bottom-25 margin-left-20">NetFlix roulette</h1>
+                    <div className="text-white font-weight-bold margin-bottom-25 margin-left-20">
+                        <label htmlFor="title">FIND YOUR MOVIE</label>
+                    </div>
+                    <div className='container'>
+                        <form onSubmit={this.handleSubmit}>
+                            <div className="form-group margin-bottom-50">
                                 <Input OnInputChange={this.handleSearchText} searchText={this.state.searchText}
                                        cypressId='search-input' placeholderText='Search'/>
-                                <div className='container'>
-                                    <span><h3 className='title'>Search by</h3></span>
-                                    <div className="row">
-                                        <div className="col-md-6">
+                            </div>
+                            <div className="row margin-bottom-25">
+                                <div className="col-md-3 text-right margin-top-15">
+                                    <h5 className='title'><span className="text-dark bg-white rounded-pill padding-15-25 font-weight-bold">Search by:</span></h5>
+                                </div>
+                                <div className="col-md-6 text-left">
                                             <span onClick={() => this.handleSearchBy('title')}>
-                                                <Button className={(this.state.searchBy === 'title' ? '' : 'gray')}>
+                                                <Button
+                                                    className={'btn btn-light ' + (this.state.searchBy === 'title' ? '' : 'gray')}>
                                                     Title
                                                 </Button>
                                             </span>
-                                       </div>
-                                        <div className="col-md-6">
-                                            <span onClick={() => this.handleSearchBy('genres')}>
-                                                <Button className={(this.state.searchBy === 'genres' ? '' : 'gray')}>
+                                    <span onClick={() => this.handleSearchBy('genres')} className="margin-left-10">
+                                                <Button
+                                                    className={'btn btn-light ' + (this.state.searchBy === 'genres' ? '' : 'gray')}>
                                                     Genre
                                                 </Button>
                                             </span>
-                                        </div>
-                                    </div>
-                                    <div onClick={this.search} className='search-btn'>
+                                </div>
+                                <div className="col-md-3 text-left">
+                                    <div onClick={this.search} className='btn btn-light search-btn'>
                                         <Button cypressId='search-button'>Search</Button>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
+                        </form>
                     </div>
                 </div>
+            </div>
         );
     }
 }

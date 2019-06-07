@@ -1,0 +1,15 @@
+//@import '../../variable';
+
+@import "../../../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
+.header {
+  &.roulette-background{
+    background-image: url('../../../../assets/images/headerBackground.jpg');
+    -webkit-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    background-size: 100% 100%;
+  }
+}
+
+

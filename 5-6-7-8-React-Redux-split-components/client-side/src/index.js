@@ -2,7 +2,7 @@ import React from 'react';
 import {render} from 'react-dom';
 import App from './js/components/app/app';
 import './reset.scss';
-import {BrowserRouter as Router} from "react-router-dom";
+import {Router} from "react-router-dom";
 import Provider from "react-redux/es/components/Provider";
 import {applyMiddleware, createStore} from "redux";
 import thunk from "redux-thunk";
@@ -14,7 +14,7 @@ const history = createBrowserHistory();
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 const store = createStoreWithMiddleware(reducers);
 
-const rootEl = document.getElementById('app');
+const root = document.getElementById('app');
 
 
 render(
@@ -22,7 +22,7 @@ render(
         <Router history={history}>
             <App/>
         </Router>
-    </Provider>, rootEl);
+    </Provider>, root);
 
 if (module.hot) {
     module.hot.accept();

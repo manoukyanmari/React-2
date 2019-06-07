@@ -14,7 +14,7 @@ class Input extends PureComponent {
         return (
             <div className={this.props.className}>
                 <input value={this.state.searchText} onChange={this.handleSearchText}
-                       data-testid={this.props.cypressId}
+                       data-testid={this.props.cypressId} className="form-control"
                        type="text" placeholder={this.props.placeholderText}/>
             </div>
         )
